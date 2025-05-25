@@ -1,16 +1,34 @@
 package main
 
-import(
-	"fmt"
-	"github.com/gin-gonic/gin"
-    "gorm.io/driver/mysql"
-    "gorm.io/gorm"
-	"os"
-	"log"
-	"TodoApp/models"
+import (
 	"TodoApp/controllers"
+	"TodoApp/models"
+	"fmt"
+	"log"
+	"os"
+
+	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
+
+// CORS ミドルウェア
+func CORSMiddleware() gin.HandlerFunc {
+	return gin.HandlerFunc(func(c *gin.Context) {
+		c.Header("Access-Control-Allow-Origin", "http://localhost:3000")
+		c.Header("Access-Control-Allow-Credentials", "true")
+		c.Header("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
+		c.Header("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT, DELETE")
+
+		if c.Request.Method == "OPTIONS" {
+			c.AbortWithStatus(204)
+			return
+		}
+
+		c.Next()
+	})
+}
 
 func main() {
 	err := godotenv.Load()
@@ -31,6 +49,8 @@ func main() {
     }
 
 	Todo := gin.Default()
+
+	Todo.Use(CORSMiddleware())
 
 	con := controllers.NewTodoController(db)
 

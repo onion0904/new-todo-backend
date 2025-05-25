@@ -1,3 +1,5 @@
+[フロントエンド](https://github.com/onion0904/new-todo-frontend)
+
 ## コードを作成する上で
 ### 気づいたところ
 - 調べながら作るには「どう動かそうか」「どう構成するか」などが分かっていないとできないので言語化するのがとても難しかったです
@@ -14,7 +16,7 @@
 ## 作成したアプリケーションを起動し動作確認する手順
 ### インストール
 ```
-git clone https://github.com/catechlounge/onion0904-todo-api
+git clone https://github.com/onion0904/new-todo-backend.git
 ```
 
 ### 起動方法
